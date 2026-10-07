@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+prisma/*.db*
+coverage/
+.local/
+test-results/
+playwright-report/
+demo/raw/
+demo/temp/
+demo/output/

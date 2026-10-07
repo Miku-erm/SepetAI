@@ -1,0 +1,64 @@
+{
+  "name": "sepet-ai",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "overrides": {
+    "shell-quote": "1.11.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB \"tsx watch server/index.ts\" \"vite\"",
+    "build": "npm run typecheck && vite build && tsc -p tsconfig.server.json",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.demo.json",
+    "start": "node dist/server/index.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "tsx scripts/prepare-db.ts && prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ollama": "tsx scripts/test-ollama.ts",
+    "test:e2e": "npm run build && playwright test",
+    "test:e2e:ollama": "npm run build && tsx scripts/test-browser-ollama.ts",
+    "ollama:local": "powershell -NoProfile -File scripts/start-local-ollama.ps1",
+    "demo:record": "npm run build && tsx scripts/demo/record.ts",
+    "demo:render": "tsx scripts/demo/render.ts",
+    "demo:video": "npm run demo:record && npm run demo:render",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "6.12.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.9",
+    "@types/supertest": "^6.0.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "9.2.1",
+    "jsdom": "^26.1.0",
+    "prisma": "6.12.0",
+    "supertest": "^7.1.4",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.6",
+    "vitest": "4.1.11"
+  }
+}

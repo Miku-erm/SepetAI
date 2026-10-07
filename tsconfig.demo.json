@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.server.json",
+  "compilerOptions": { "noEmit": true, "lib": ["ES2022", "DOM"] },
+  "include": ["scripts/demo/**/*.ts", "server/**/*.ts", "shared/**/*.ts", "prisma/products.ts", "scripts/temp-cleanup.ts"],
+  "exclude": ["server/**/*.test.ts"]
+}
